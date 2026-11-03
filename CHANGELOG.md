@@ -1,3 +1,15 @@
+# 1.7.32-rc.1
+
+## Dansk
+
+- Fjerner valget mellem automatisk indflyvning og tilkald med klik.
+- Sætter robottens indflyvning fast til 3 sekunder.
+
+## English
+
+- Removes the choice between automatic entrance and click-to-summon.
+- Sets the robot entrance animation to a fixed 3 seconds.
+
 # 1.7.31-rc.1
 
 ## Dansk
