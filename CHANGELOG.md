@@ -1,3 +1,15 @@
+# 1.7.29-rc.1
+
+## Dansk
+
+- Gør knappen til at hente robotten frem til et lille, rundt robotikon.
+- Lader robotten flyve ind fra højre, når den hentes frem efter et tryk.
+
+## English
+
+- Replaces the summon button with a small, round robot icon.
+- Animates the robot in from the right when summoned with a tap.
+
 # 1.7.28-rc.1
 
 ## Dansk
