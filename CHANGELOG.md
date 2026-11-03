@@ -1,3 +1,15 @@
+# 1.7.27-rc.1
+
+## Dansk
+
+- Udskifter robotten med et nyt, moderne design i sølvhvid med cyan lys.
+- Bevarer farveindstillingerne for den nye robot.
+
+## English
+
+- Replaces the robot with a new modern silver-white design with cyan lighting.
+- Keeps the color settings for the new robot.
+
 # 1.7.26-rc.1
 
 ## Dansk
