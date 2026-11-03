@@ -1,3 +1,15 @@
+# 1.7.24-rc.1
+
+## Dansk
+
+- Tilføjer fem udseender til robotten, som kan vælges under tandhjulets indstillinger.
+- Gemmer det valgte udseende for den enkelte Home Assistant-bruger.
+
+## English
+
+- Adds five robot appearances selectable under the gear settings.
+- Saves the selected appearance for each Home Assistant user.
+
 # 1.7.23-rc.1
 
 ## Dansk
