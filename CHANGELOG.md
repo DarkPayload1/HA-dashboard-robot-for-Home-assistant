@@ -1,3 +1,15 @@
+# 1.7.26-rc.1
+
+## Dansk
+
+- Udskifter robotfiguren med et nyt, mere moderne design.
+- Bevarer brugerens valg af robotfarve i indstillingerne.
+
+## English
+
+- Replaces the robot character with a new, more modern design.
+- Keeps the robot color selection in settings.
+
 # 1.7.25-rc.1
 
 ## Dansk
