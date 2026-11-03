@@ -350,13 +350,13 @@ class DashboardRobot extends HTMLElement {
   }
   _setupPopup() {
     const dialog=document.createElement('dialog');dialog.className='robot-dialog';dialog.setAttribute('aria-labelledby','robot-dialog-title');
-    dialog.innerHTML='<div class="dialog-header"><h3 id="robot-dialog-title">🤖 Din hjemmehjælper</h3><button type="button" class="settings-button" aria-label="Åbn popup-indstillinger" title="Indstillinger">⚙</button><button type="button" class="close-dialog" aria-label="Luk robotvinduet">✕</button></div><section class="popup-settings" hidden aria-label="Indstillinger for robotvinduet"><label><span>Assistent</span><span class="assistant-setting-row"><select class="assistant-select" aria-label="Vælg assistent"></select><button type="button" class="assistant-refresh" aria-label="Opdatér assistenter">↻</button></span></label><label><span>Vælg vinduesstørrelse</span><select class="popup-size"><option value="compact">Lille</option><option value="standard">Normal</option><option value="large">Stor</option></select></label><label><span>Vælg vindueshøjde</span><select class="popup-height"><option value="low">Lav</option><option value="standard">Normal</option><option value="tall">Høj</option></select></label><label for="popup-opacity"><span>Gennemsigtighed</span><span class="opacity-value">18%</span><input id="popup-opacity" class="popup-opacity" type="range" min="5" max="60" step="1" value="18" aria-label="Gennemsigtighedsniveau"></label><label class="remember-row"><input class="popup-remember" type="checkbox"><span>Husk vinduets placering</span></label><div class="popup-settings-status" role="status" aria-live="polite"></div></section><div class="dialog-content"></div>';
+    dialog.innerHTML='<div class="dialog-header"><h3 id="robot-dialog-title">🤖 Din hjemmehjælper</h3><button type="button" class="settings-button" aria-label="Åbn popup-indstillinger" title="Indstillinger">⚙</button><button type="button" class="close-dialog" aria-label="Luk robotvinduet">✕</button></div><section class="popup-settings" hidden aria-label="Indstillinger for robotvinduet"><label><span>Assistent</span><span class="assistant-setting-row"><select class="assistant-select" aria-label="Vælg assistent"></select><button type="button" class="assistant-refresh" aria-label="Opdatér assistenter">↻</button></span></label><label><span>Robotens udseende</span><select class="robot-look" aria-label="Vælg robotudseende"><option value="blue">Blå robot</option><option value="violet">Lilla robot</option><option value="green">Grøn robot</option><option value="rose">Rød robot</option><option value="gold">Gylden robot</option></select></label><label><span>Vælg vinduesstørrelse</span><select class="popup-size"><option value="compact">Lille</option><option value="standard">Normal</option><option value="large">Stor</option></select></label><label><span>Vælg vindueshøjde</span><select class="popup-height"><option value="low">Lav</option><option value="standard">Normal</option><option value="tall">Høj</option></select></label><label for="popup-opacity"><span>Gennemsigtighed</span><span class="opacity-value">18%</span><input id="popup-opacity" class="popup-opacity" type="range" min="5" max="60" step="1" value="18" aria-label="Gennemsigtighedsniveau"></label><label class="remember-row"><input class="popup-remember" type="checkbox"><span>Husk vinduets placering</span></label><div class="popup-settings-status" role="status" aria-live="polite"></div></section><div class="dialog-content"></div>';
     this.shadowRoot.append(dialog);this._dialog=dialog;
     dialog.querySelector('.dialog-content').append(this.shadowRoot.querySelector('ha-card'));
     dialog.querySelector('.close-dialog').addEventListener('click',()=>this._closeRobotChat());
     this._loadPopupSettings();
     const settingsButton=dialog.querySelector('.settings-button'),settingsPanel=dialog.querySelector('.popup-settings');
-    settingsButton.addEventListener('click',()=>{settingsPanel.hidden=!settingsPanel.hidden;});dialog.querySelector('.assistant-select').addEventListener('change',event=>this._setSelectedAssistant(event.target.value));dialog.querySelector('.assistant-refresh').addEventListener('click',()=>this._loadAssistantAgents(true));
+    settingsButton.addEventListener('click',()=>{settingsPanel.hidden=!settingsPanel.hidden;if(!settingsPanel.hidden){this._loadAssistantAgents();this._renderRobotLook();}});dialog.querySelector('.assistant-select').addEventListener('change',event=>this._setSelectedAssistant(event.target.value));dialog.querySelector('.robot-look').addEventListener('change',event=>this._setRobotLook(event.target.value));dialog.querySelector('.assistant-refresh').addEventListener('click',()=>this._loadAssistantAgents(true));
     dialog.querySelector('.popup-size').addEventListener('change',event=>{this._popupSettings.size=event.target.value;this._savePopupSettings();});
     dialog.querySelector('.popup-height').addEventListener('change',event=>{this._popupSettings.height=event.target.value;this._savePopupSettings();});
     dialog.querySelector('.popup-opacity').addEventListener('input',event=>{this._popupSettings.transparency=Number(event.target.value);this._applyPopupSettings();dialog.querySelector('.opacity-value').textContent=event.target.value+'%';});
@@ -486,6 +486,33 @@ class DashboardRobot extends HTMLElement {
     catch{this._recognition=null;this._listening=false;this._update();note.textContent='Mikrofonen kunne ikke startes. Kontroller mikrofontilladelsen, og prøv igen.';}
   }
 
+
+  _robotLookKey(){return 'dashboard-robot-look:v1:'+this._preferenceKey();}
+  _selectedRobotLook(){
+    let look='blue';try{look=localStorage.getItem(this._robotLookKey())||'blue';}catch{}
+    return ['blue','violet','green','rose','gold'].includes(look)?look:'blue';
+  }
+  _renderRobotLook(){
+    const select=this._dialog?.querySelector('.robot-look');if(select)select.value=this._selectedRobotLook();
+  }
+  _setRobotLook(look){
+    if(!['blue','violet','green','rose','gold'].includes(look))return;
+    try{localStorage.setItem(this._robotLookKey(),look);}catch{}
+    this._applyRobotLook();
+  }
+  _applyRobotLook(){
+    const look=this._selectedRobotLook();
+    const art=this.shadowRoot?.querySelector('.robot-art'),halo=this.shadowRoot?.querySelector('.halo');
+    if(!art||!halo)return;
+    const presets={
+      blue:{filter:'drop-shadow(0 5px 9px #020b1944)',background:'#4ce6ed33',border:'#74efff55'},
+      violet:{filter:'hue-rotate(82deg) saturate(1.35) drop-shadow(0 0 9px #c28aff88)',background:'#bc76ff3d',border:'#ddaaff88'},
+      green:{filter:'hue-rotate(-55deg) saturate(1.45) drop-shadow(0 0 9px #73f59b88)',background:'#55e68d3d',border:'#9dffc188'},
+      rose:{filter:'hue-rotate(145deg) saturate(1.4) drop-shadow(0 0 9px #ff82bd88)',background:'#ff6db63d',border:'#ffa2d188'},
+      gold:{filter:'sepia(.45) hue-rotate(345deg) saturate(1.5) drop-shadow(0 0 9px #ffd36e88)',background:'#ffc34d3d',border:'#ffe19a88'}
+    }[look];
+    art.style.filter=presets.filter;halo.style.background=presets.background;halo.style.borderColor=presets.border;
+  }
 
   _assistantPreferenceKey(){return 'dashboard-robot-assistant:v1:'+this._preferenceKey();}
   _selectedAssistant(){
@@ -683,7 +710,7 @@ class DashboardRobot extends HTMLElement {
     if(changed)log.scrollTop=log.scrollHeight;
   }
 
-  _update(){this._restoreSession();this._renderOriginal();this._renderChatHistory();this._localize();this._applyCapabilities();this._applyRobotName();this._renderVoiceSettings();this._renderExperience();this._saveSession();}
+  _update(){this._restoreSession();this._renderOriginal();this._renderChatHistory();this._localize();this._applyCapabilities();this._applyRobotName();this._applyRobotLook();this._renderVoiceSettings();this._renderExperience();this._saveSession();}
   _commandText(text){
     let q=String(text||'').trim();if(this._language()==='da')return q;
     const replacements=[[/^(?:can|could|would) you\s+/i,''],[/^kannst du\s+/i,''],[/^turn on (?:the )?lights?/i,'tænd lys'],[/^turn off (?:the )?lights?/i,'sluk lys'],[/^dim (?:the )?lights? to (\d+)\s*(?:percent|%)/i,'dæmp lyset til $1 procent'],[/^(?:play|resume) (?:the )?music/i,'spil musik'],[/^pause (?:the )?music/i,'pause musik'],[/^turn (?:the )?volume (up|down)/i,(_,d)=>d.toLowerCase()==='up'?'skru op':'skru ned'],[/^(?:show|open) (?:me )?(?:the )?camera/i,'åbn kamera'],[/^(add|remove)\s+(GLS|PostNord|DHL|Bring|DAO)[- ]+(?:parcel|tracking)\s+/i,(_,a,c)=>(a.toLowerCase()==='add'?'tilføj':'fjern')+' '+c+' pakke '],[/\s+in (?:the )?/i,' i '],[/^(?:zeige|zeig|öffne) (?:mir )?(?:die )?kamera/i,'åbn kamera'],[/^licht (?:im|in) (.+) einschalten$/i,'tænd lys i $1'],[/^licht (?:im|in) (.+) ausschalten$/i,'sluk lys i $1'],[/^musik (?:im|in) (.+) (?:abspielen|fortsetzen)$/i,'spil musik i $1'],[/^musik (?:im|in) (.+) pausieren$/i,'pause musik i $1'],[/^(GLS|PostNord|DHL|Bring|DAO)[- ]paket (\w+) hinzufügen$/i,'tilføj $1 pakke $2'],[/^(GLS|PostNord|DHL|Bring|DAO)[- ]paket (\w+) entfernen$/i,'fjern $1 pakke $2']];
