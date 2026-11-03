@@ -1,3 +1,17 @@
+# 1.7.31-rc.1
+
+## Dansk
+
+- Gør tilkaldsknappen synlig som en tydelig “Spørg robot”-knap nederst på dashboardet.
+- Tilføjer valgfrit stemmekald med “Hej robot” under robottens indstillinger.
+- Pauser stemmegenkendelsen, når dashboardfanen er skjult, og kræver mikrofontilladelse.
+
+## English
+
+- Shows a clear “Ask robot” button at the bottom of the dashboard.
+- Adds optional voice wake-up with “Hey robot” in the robot settings.
+- Pauses speech recognition while the dashboard tab is hidden and requires microphone permission.
+
 # 1.7.30-rc.1
 
 ## Dansk
