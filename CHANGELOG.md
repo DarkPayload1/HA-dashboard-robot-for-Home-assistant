@@ -1,3 +1,13 @@
+# 1.7.30-rc.1
+
+## Dansk
+
+- Sænker robottens indflyvning, så den bruger 3,5 sekunder.
+
+## English
+
+- Slows the robot's entrance animation to 3.5 seconds.
+
 # 1.7.29-rc.1
 
 ## Dansk
