@@ -1,3 +1,15 @@
+# 1.7.33-rc.1
+
+## Dansk
+
+- Tilføjer stemmekommandoerne “Godnat robot”, “Farvel robot” og “Skjul robot” til at skjule robotten.
+- Opdaterer hjælpeteksten for stemmekald.
+
+## English
+
+- Adds the voice commands “Goodnight robot”, “Goodbye robot” and “Hide robot” to hide the robot.
+- Updates the voice wake-up help text.
+
 # 1.7.32-rc.1
 
 ## Dansk
