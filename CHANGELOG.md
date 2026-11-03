@@ -1,14 +1,14 @@
-# 1.7.24-rc.1
+# 1.7.25-rc.1
 
 ## Dansk
 
-- Tilføjer fem udseender til robotten, som kan vælges under tandhjulets indstillinger.
-- Gemmer det valgte udseende for den enkelte Home Assistant-bruger.
+- Retter indlæsningen af robotens frontend, så assistentvalg og robotudseende vises efter opdatering.
+- Bruger versionsnummeret som cache-nøgle og indlæser den aktuelle `robot.js`.
 
 ## English
 
-- Adds five robot appearances selectable under the gear settings.
-- Saves the selected appearance for each Home Assistant user.
+- Fixes frontend loading so the assistant and robot appearance selectors appear after updating.
+- Uses the release version as the cache key and loads the current `robot.js`.
 
 # 1.7.23-rc.1
 
