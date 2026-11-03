@@ -1,3 +1,15 @@
+# 1.7.23-rc.1
+
+## Dansk
+
+- Tilføjer valg af samtaleassistent under tandhjulets indstillinger.
+- Gemmer assistentvalget for den enkelte Home Assistant-bruger.
+
+## English
+
+- Adds a conversation assistant selector under the gear settings.
+- Saves the selected assistant for each Home Assistant user.
+
 # 1.7.22-rc.1
 
 ## Dansk
