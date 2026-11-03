@@ -1,3 +1,13 @@
+# 1.7.28-rc.1
+
+## Dansk
+
+- Tilføjer valg mellem at robotten kører ind fra øverste højre hjørne eller først vises efter et tryk.
+
+## English
+
+- Adds a choice between the robot sliding in from the upper-right corner or appearing only after a tap.
+
 # 1.7.27-rc.1
 
 ## Dansk
